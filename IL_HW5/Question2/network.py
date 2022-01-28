@@ -1,11 +1,17 @@
+import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
-class DeepNetwork (nn.module):
-    # TODO: Define the Deep Q Network class here.
-    # This class should estimate Q(s, a).
-    #
-    # Hints: 1- Define the architecture of the class in the init method.
-    #        2- Define a method that takes a state as input
-    #           an outputs action-values of the state.
-    #        3- You may also define methods for saving and loading
-    #           network weights.
+class DeepNetwork(nn.Module):
+    def __init__(self, state_size, action_size):
+        super(DeepNetwork, self).__init__()
+        self.fc1 = nn.Linear(state_size, 64)
+        self.fc2 = nn.Linear(64, 64)
+        self.fc3 = nn.Linear(64, action_size)
+        
+    def forward(self, state):
+        x = self.fc1(state)
+        x = F.relu(x)
+        x = self.fc2(x)
+        x = F.relu(x)
+        return self.fc3(x)

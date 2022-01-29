@@ -23,7 +23,7 @@ def show_video(env_name):
 def show_video_of_model(agent, env_name):
     env = gym.make(env_name)
     vid = video_recorder.VideoRecorder(env, path="video/{}.mp4".format(env_name))
-    agent.qnetwork_local.load_state_dict(torch.load('checkpoint.pth'))
+    agent.qnetwork_local.load_state_dict(torch.load('optimal_network.pth'))
     state = env.reset()
     done = False
     while not done:
